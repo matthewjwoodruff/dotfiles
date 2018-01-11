@@ -199,3 +199,7 @@ map global insert <c-t> %{<a-;>!date +"%Y-%m-%d %H:%M"<ret>}
 map global normal <c-w> %{<a-x>|fmt -60<ret>l}
 ```
 
+# Copyright Statement: CC0
+
+This document (`README.md`) is licensed
+[CC0](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
