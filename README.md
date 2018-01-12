@@ -251,9 +251,8 @@ fi
 Archwiki has a user-systemd approach that didn't exist
 the last time I looked.  Might be a superior approach,
 but I don't always have systemd, e.g. on Cygwin.  It also
-has a dead simple version of the approach I'm using.
-
-
+has a dead simple version of the approach I'm using,
+but this version feels a little nicer.
 
 # Copyright Statement: CC0
 
