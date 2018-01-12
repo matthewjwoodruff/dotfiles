@@ -52,6 +52,7 @@ bind < resize-pane -L 5
 bind > resize-pane -R 5
 bind - resize-pane -D 5
 bind + resize-pane -U 5
+bind * rotate-window
 ```
 
 Finally, I'm almost always using a 256-color terminal, and
@@ -135,6 +136,20 @@ set mouse=
 set number
 ```
 
+Also, some keyboards put F1 where ESC belongs.  Especially
+some versions of the Thinkpad keyboard.  If I want help,
+I'll ask for it with `:help`.  I never ever want F1 to
+mean help.
+
+```
+noremap <F1> <nop>
+inoremap <F1> <nop>
+```
+
+You could map to <Esc> instead, but the absolute best thing
+to do is to start using `^[` instead of escape, because the
+`[` is more reliably located and closer to the home row.
+
 # Kakoune
 
 Three cheers for kak!  It's a delightful text editor.
@@ -198,6 +213,47 @@ of my own devising, and I use them very heavily:
 map global insert <c-t> %{<a-;>!date +"%Y-%m-%d %H:%M"<ret>}
 map global normal <c-w> %{<a-x>|fmt -60<ret>l}
 ```
+
+# ssh-agent
+
+## High Priority
+
+It's *incredibly* useful to have an ssh-agent running
+as long as you are logged in.  10h is the timeout.
+Historically I haven't used one but I think it's a good
+idea.  I shamelessly copied this approach from (Mark
+A. Hershberger](http://mah.everybody.org/docs/ssh), who
+claims the approach originates with Joseph M. Reagle.
+
+Put this in `.bash_profile`:
+
+```
+SSH_ENV="$HOME/.ssh/environment"
+
+function start_agent {
+    echo "Initializing new SSH agent..."
+    /usr/bin/ssh-agent -t 10h | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+}
+
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
+```
+
+Archwiki has a user-systemd approach that didn't exist
+the last time I looked.  Might be a superior approach,
+but I don't always have systemd, e.g. on Cygwin.  It also
+has a dead simple version of the approach I'm using.
+
+
 
 # Copyright Statement: CC0
 
