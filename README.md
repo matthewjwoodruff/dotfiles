@@ -254,6 +254,18 @@ but I don't always have systemd, e.g. on Cygwin.  It also
 has a dead simple version of the approach I'm using,
 but this version feels a little nicer.
 
+# System Beep
+
+System beep is annoying.  I prefer the flashing terminal.
+[TLDP](http://tldp.org/HOWTO/Visual-Bell-8.html) recommends
+the following:
+
+* In `.inputrc`: `set prefer-visible-bell`
+* In `.bashrc`: `set bell-style visible`
+
+You have to do this on remote machines too or your ssh
+sessions will beep at you.
+
 # Copyright Statement: CC0
 
 This document (`README.md`) is licensed
