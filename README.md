@@ -121,7 +121,7 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 ## Low Priority
 
 I mostly use Kakoune now, but I may not have bothered
-to build it, or I may need it for one of the things it's
+to build it, or I may need vim for one of the things it's
 better at.  (Interactive `sed` :), and vimdiff)
 
 I like to turn on syntax highlighting and autoindent,
