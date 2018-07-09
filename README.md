@@ -62,6 +62,19 @@ if I'm not, I know what that looks like and how to fix it:
 set -g default-terminal screen-256color
 ```
 
+### Alternative TrueColor Fix
+
+This has made my kak colorschemes work.  Instead of
+`screen-256color` do these two lines:
+
+```
+set -g default-terminal tmux-256color
+set -ga terminal-overrides ",xterm-256color:Tc"
+```
+
+I'm not sure where I got them, but they're in the Arch
+wiki among other places.
+
 # i3
 
 ## High Priority
