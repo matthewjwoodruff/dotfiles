@@ -215,8 +215,8 @@ set-option global ui_options ncurses_enable_mouse=false
 Number lines and show matches:
 
 ```
-hook global WinCreate .* %{add-highlighter buffer number_lines}
-hook global WinCreate .* %{add-highlighter buffer dynregex '%reg{/}' 0:MenuForeground}
+hook global WinCreate .* %{add-highlighter buffer/ number-lines}
+hook global WinCreate .* %{add-highlighter buffer/ dynregex '%reg{/}' 0:MenuForeground}
 ```
 
 These two shortcuts for timestamp and text wrapping are
