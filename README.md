@@ -279,6 +279,61 @@ the following:
 You have to do this on remote machines too or your ssh
 sessions will beep at you.
 
+# Mail User Agent
+
+## git send-email
+
+This was a real pain to figure out.
+
+In `~/.gitconfig`
+
+```
+[sendemail]
+    smtpEncryption = tls
+    smtpServer = <smtp.domain.tld>
+    smtpUser = <email address>
+    smtpServerPort = 587
+    smtpPass = "password"
+    smtpAuth = "LOGIN"
+    smtpServerOption = starttls
+```
+
+I also installed:
+
+```
+perl-io-socket-ssl
+perl-authen-sasl
+```
+
+## mutt
+
+This follows the Arch Wiki.  I may not quite have
+everything right, but it seems to do the job.
+
+```
+set imap_user=<email address>
+set imap_pass="password"
+set folder=imaps://imap.domain.tld:993
+set spoolfile=+INBOX
+set header_cache = ~/.cache/mutt
+set message_cachedir = "~/.cache/mutt"
+
+set realname="Real Name"
+set from = <email address>
+set use_from = yes
+set smtp_url=smtps://$imap_user:$imap_pass@smtp.domain.tld:465
+set ssl_force_tls = yes
+set ssl_starttls = yes
+set smtp_authenticators="login"
+```
+
+## Comment 
+
+Why `git send-email` needs to use port 587 and not 465,
+for the same SMTP server, I have no idea.  Could be
+misconfiguration at my end.  Someday I'll learn how
+email works.
+
 # Copyright Statement: CC0
 
 This document (`README.md`) is licensed
