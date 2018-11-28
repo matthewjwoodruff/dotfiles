@@ -305,6 +305,13 @@ perl-io-socket-ssl
 perl-authen-sasl
 ```
 
+Also, your repo needs a configuration item:
+
+```
+[sendemail]
+    to = mailinglist@domain.tld
+```
+
 ## mutt
 
 This follows the Arch Wiki.  I may not quite have
