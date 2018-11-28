@@ -332,7 +332,11 @@ set smtp_url=smtps://$imap_user:$imap_pass@smtp.domain.tld:465
 set ssl_force_tls = yes
 set ssl_starttls = yes
 set smtp_authenticators="login"
+
+set record = "+Sent"
 ```
+
+The last line there copies sent mail to the "Sent" folder.
 
 ## Comment 
 
