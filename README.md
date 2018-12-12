@@ -345,6 +345,21 @@ for the same SMTP server, I have no idea.  Could be
 misconfiguration at my end.  Someday I'll learn how
 email works.
 
+# Sway
+
+For keybindings, see i3 config.  I also use swayidle
+for locking, similar to the commented lines in
+`/etc/sway/config/`:
+
+```
+exec swayidle \
+    timeout 600 'swaylock -c 007722' \
+    timeout 1200 'swaymsg "output * dpms off"' \
+       resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -c 007722'
+```
+
+
 # Copyright Statement: CC0
 
 This document (`README.md`) is licensed
