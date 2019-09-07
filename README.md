@@ -1,26 +1,22 @@
 # Dotfiles
 
-2018-01-11 12:22
+2019-09-07 09:53
 
-I generally dislike configuration, and I think one ought
-to be able to sit down at any system and use the standard
-tools.
+This file lists the options I like for some tools that
+I use.
 
-That being said, there are a few configuration options
-I find useful, without which I find myself plagued by
-annoyance.
-
-It's important to understand these options thoroughly
-before applying them, however.  To that end, this dotfiles
-repo contains only notes about what to put in your config
-files, rather than providing plug-and-play configurations.
+There's a balance between spending too little time on
+configuration and spending too much, between using tools
+that don't fit the hand and being the artist who sharpens
+pencils for five hours without drawing anything.  I err
+on the side of under-configuring things.
 
 # Tmux
 
 ## High Priority
 
-I used `screen` long before I discovered `tmux`.  As a
-result, ^B fights against my muscle memory:
+I like `^A` rather than `^B` because I switched from
+`screen` and got used to `^A`.
 
 ```
 unbind C-b
@@ -28,9 +24,8 @@ set -g prefix C-a
 bind C-a send-prefix
 ```
 
-Although I like the vi keybindings for text editors,
-I mostly prefer to use vanilla keybindings elsewhere.
-But I really like them for copy-mode in tmux:
+I mostly avoid `vi`-style keybindings outside of text
+editors, but I like them for the `tmux` copy mode too.
 
 ```
 set-window-option -g mode-keys vi
@@ -38,9 +33,9 @@ set-window-option -g mode-keys vi
 
 ## Low Priority
 
-These make navigating and resizing panes more pleasant.
-Unfortunately, 5 characters at a time is a necessary
-compromise between big and little screens.
+These make navigating and resizing panes easier.
+5 characters at a time is a compromise between big and
+little screens.
 
 ```
 bind h select-pane -L
@@ -55,25 +50,17 @@ bind + resize-pane -U 5
 bind * rotate-window
 ```
 
-Finally, I'm almost always using a 256-color terminal, and
-if I'm not, I know what that looks like and how to fix it:
+### TrueColor
 
-```
-set -g default-terminal screen-256color
-```
-
-### Alternative TrueColor Fix
-
-This has made my kak colorschemes work.  Instead of
-`screen-256color` do these two lines:
+This doesn't exactly have "robust solution" written all
+over it, but it gives me pretty colorschemes in Kakoune.
 
 ```
 set -g default-terminal tmux-256color
 set -ga terminal-overrides ",xterm-256color:Tc"
 ```
 
-I'm not sure where I got them, but they're in the Arch
-wiki among other places.
+I think I stole this from the Arch Wiki.
 
 # i3
 
@@ -89,18 +76,20 @@ bindsym $mod+Shift+Return exec "urxvt -bg gray70 -rv -fade 5 +sb -vb -tn xterm-2
 bindsym $mod+Return exec "gnome-terminal --profile=smaller"
 ```
 
-
 The biggest advantage to using gnome-terminal over urxvt is
 that it's tuned in to whatever foolishness other GUI apps
 are using for copypaste instead of left-click selection
-and middle-click paste.  (I wish web browsers would honor
-that convention consistently!)
+and middle-click paste.  (I wish web browsers would use
+that convention!)
 
-Navigation keybindings default to the uncanny valley:
-`jkl;` instead of `hjkl`.  Just close enough to be
-maddenning.
+Lately I've been using kitty a lot too.
 
-You can define them at the top and then use them later:
+`i3` navigation keybindings default to the uncanny valley:
+`jkl;` instead of `hjkl`.  It's just close enough to
+be maddenning.
+
+You can define them at the top and then use them later,
+for move, rearrange, and resize (3 places!):
 
 ```
 set $up h
@@ -122,12 +111,15 @@ bindsym Mod+Ctrl1+v split v
 
 ## Low Priority
 
-I tend not to hit mod+E by mistake, so I prefer to exit
-directly and skip the nagbar:
+I prefer to exit directly and skip the nagbar:
 
 ```
 bindsym $mod+Shift+e exec "i3-msg exit"
 ```
+
+Usually the important stuff is in a Kakoune session I
+started with `kak -s`, so even if I kill my session by
+mistake, it's easy to bounce back.
 
 # vim
 
@@ -159,20 +151,30 @@ noremap <F1> <nop>
 inoremap <F1> <nop>
 ```
 
-You could map to <Esc> instead, but the absolute best thing
-to do is to start using `^[` instead of escape, because the
-`[` is more reliably located and closer to the home row.
+You could map to `<F1>` to `<Esc>` instead, but the
+absolute best thing to do is to start using `^[` instead
+of escape, because the `[` is more reliably located and
+closer to the home row.
+
+Laptop keyboards can be a problem here too, unfortunately,
+because some of them have a `Fn` key to the left of
+`Ctrl`, and others put it between `Ctrl` and the logo key.
+You could remap `Ctrl` to Caps Lock, but I like Caps Lock
+where it is.
 
 # Kakoune
 
-Three cheers for kak!  It's a delightful text editor.
+If you overuse visual mode in Vim and feel guilty about
+it, consider using Kakoune.  Kakoune is modal like Vim,
+but it's oriented around selections rather than actions.
+I use it as my primary editor for writing programs.
 
 ## High Priority
 
 I tend to use spaces for indent because I spend so much
 time writing Python.  And for Python, 4-space tabs are
 not optional.  I don't have deep personal feelings one
-way or the other.  Just try to be consistent, people:
+way or the other.  Just try to be consistent, people!
 
 ```
 hook global WinCreate .* %{
@@ -183,16 +185,15 @@ set-option global tabstop 4
 ```
 
 Honestly kak configuration syntax isn't something I've
-devoted a lot of effort to learning.  See my comments
-above about preferring the defaults.  Interestingly,
+devoted a lot of effort to learning.  Interestingly,
 vim has a whole lot more options, so each config line is
 shorter, but kak's commands are simple and compose well.
 You need to write more stuff as a result to get the same
 effect, but kak lets you have a slightly different effect
 if you prefer.
 
-Anyhow, if you want real tabs for Makefiles, you can also
-do:
+Anyhow, if you want real tabs for Makefiles or something,
+you can also do:
 
 ```
 map global insert <a-t> '<a-;>!printf "\t"<ret>'
@@ -200,19 +201,21 @@ map global insert <a-t> '<a-;>!printf "\t"<ret>'
 
 You could map from `<a-tab>` instead, but that messes with
 the muscle memory from Windows, so I wouldn't recommend it.
-It's bad enough that I'm used to using mod+L to switch
-windows in i3, which locks the screen on MS Windows.
+It's bad enough that I'm used to using `mod4+L` to switch
+windows in `i3` and `sway`, which locks the screen on
+MS Windows.
 
 ## Low Priority
 
-The mouse drives me absolutely bonkers:
+The mouse drives me bonkers.  If I want mouse select
+at all, I want terminal-level mouse select, not
+application-level mouse select.
 
 ```
 set-option global ui_options ncurses_enable_mouse=false
 ```
 
-
-Number lines and show matches:
+I usually number lines and show matches.
 
 ```
 hook global WinCreate .* %{add-highlighter buffer/ number-lines}
@@ -347,7 +350,7 @@ email works.
 
 # Sway
 
-For keybindings, see i3 config.  I also use swayidle
+For keybindings, see i3 config.  I also use `swayidle`
 for locking, similar to the commented lines in
 `/etc/sway/config/`:
 
@@ -359,6 +362,15 @@ exec swayidle \
     before-sleep 'swaylock -c 007722'
 ```
 
+# w3m
+
+Text-mode browser means text-mode!  I prefer my internet
+wordy and monochrome!
+
+`alias w3m=w3m -M -no-mouse -o auto_image=FALSE`
+
+I realize you can get this by building a minimal `w3m`
+yourself, but I'm lazy.
 
 # Copyright Statement: CC0
 
